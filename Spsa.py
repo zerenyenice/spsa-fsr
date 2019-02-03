@@ -1,4 +1,4 @@
-import sklearn
+
 import numpy as np
 import pandas as pd
 from Log import Log
@@ -6,9 +6,10 @@ from sklearn.model_selection import KFold, RepeatedKFold, StratifiedKFold, Repea
 import sklearn.metrics as metrics
 from sklearn.utils import shuffle
 
+
 class Spsa:
 
-	def __init__(self, model):
+	def __init__(self, model, num_features_selected=0, num_cores=1):
 		"""
 		Spsa algorithm initialization parameters:
 		"""
@@ -29,7 +30,7 @@ class Spsa:
 		self._run_time = -1
 		self._curr_imp = None
 		self._p = None
-		self._num_features_selected = 10
+		self._num_features_selected = num_features_selected
 		self._features_to_keep = None
 		self._selected_features = []
 		self._selected_features_prev = []
@@ -49,7 +50,7 @@ class Spsa:
 		self._num_cv_folds = 5
 		self._num_cv_reps_eval = 3
 		self._num_cv_reps_grad = 3
-		self._num_cores = 1
+		self._num_cores = num_cores
 		self._cv_feat_eval = None  # default goes to training error usage
 		self._cv_grad_avg = None  # default goes to training error usage
 		self._stratified_cv = False
@@ -208,6 +209,7 @@ class Spsa:
 
 			best_value_mean = round(1-scores.mean(), 3)
 			best_value_std = scores.std().round(3)
+			del scores
 		else:
 			Log.logger.debug('resubs error')
 			self._model.fit(x_perf, self._output_y)
@@ -216,6 +218,7 @@ class Spsa:
 			best_value_std = 0.0
 		Log.logger.debug(f"mean score: {best_value_mean}")
 		Log.logger.debug(f"std score: {best_value_std}")
+
 		return [best_value_mean, best_value_std]
 
 	def spsa_kernel(self):
