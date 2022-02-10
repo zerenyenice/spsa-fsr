@@ -5,8 +5,8 @@
 # Please refer to below for more information:
 # https://arxiv.org/abs/1804.05589
 
-from sklearn.externals.joblib import parallel_backend
-import sklearn.metrics.scorer as scorer
+from joblib import parallel_backend
+import sklearn.metrics._scorer as scorer
 from spfsr_kernel import SpfsrKernel
 
 
