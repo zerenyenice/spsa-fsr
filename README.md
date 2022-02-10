@@ -5,7 +5,7 @@ Published at https://www.sciencedirect.com/science/article/abs/pii/S030505482100
 
 Website: featureranking.com
 
-#Installation
+# Installation
 
 go to directory of the package
 
@@ -13,5 +13,5 @@ conda create -n spsa-fsr python=3.6
 conda activate spsa-fsr
 pip install -r requirements.txt
 
-#Example
+# Example
 Run spfsr_example.py for 
